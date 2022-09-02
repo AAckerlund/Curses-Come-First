@@ -19,6 +19,19 @@ public class CursesFirst{
                 }
             }
         }
+
+        //someone asked for statuses to be included.
+        ArrayList<AbstractCard> statuses = new ArrayList();
+        for(AbstractCard card : retVal.group){
+            if(card.type == AbstractCard.CardType.STATUS){
+                statuses.add(card);
+            }
+        }
+        for (AbstractCard card : statuses){
+            retVal.removeCard(card);
+            retVal.addToBottom(card);
+        }
+
         for (AbstractCard card : curses){
             retVal.removeCard(card);
             retVal.addToBottom(card);
