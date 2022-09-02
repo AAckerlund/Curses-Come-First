@@ -8,32 +8,21 @@ import java.util.ArrayList;
         clz= CardGroup.class,
         method="getPurgeableCards"
 )
-public class CursesFirst
-{
-    public ArrayList<AbstractCard> group = new ArrayList();
 
-    public CardGroup Replace(){
-        CardGroup retVal = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-
-        for(AbstractCard card : this.group)
-        {
-            if(card.type == AbstractCard.CardType.CURSE)
-            {
-                if(!card.cardID.equals("Necronomicurse") && !card.cardID.equals("CurseOfTheBell") && !card.cardID.equals("AscendersBane"))
-                {
-                    retVal.group.add(card);
+public class CursesFirst{
+    public static CardGroup Postfix(CardGroup retVal){
+        ArrayList<AbstractCard> curses = new ArrayList();
+        for(AbstractCard card : retVal.group){
+            if(card.type == AbstractCard.CardType.CURSE){
+                if(!card.cardID.equals("Necronomicurse") && !card.cardID.equals("CurseOfTheBell") && !card.cardID.equals("AscendersBane")){
+                    curses.add(card);
                 }
             }
         }
-
-        for(AbstractCard card : this.group)
-        {
-            if(card.type != AbstractCard.CardType.CURSE)
-            {
-                    retVal.group.add(card);
-            }
+        for (AbstractCard card : curses){
+            retVal.removeCard(card);
+            retVal.addToBottom(card);
         }
-
         return retVal;
     }
 }
